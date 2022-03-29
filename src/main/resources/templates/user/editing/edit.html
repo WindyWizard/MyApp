@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Edit Profile</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+	</head>
+
+	<body>
+		<div class="container">
+			<form method="post" th:action="@{/profile/edit/{username}(username = ${userEntity.getUsername()})}" th:object="${userEntity}">
+				<h1>Edit Profile</h1>
+				
+				<label for="username">Username</label>
+				<input class="form-control" type="text" name="username" id="username" th:field="*{username}">
+				
+				<label for="email">Email</label>
+				<input class="form-control" type="email" name="email" id="email" th:field="*{email}">
+
+				<button class="btn btn-success" type="success">Edit</button>
+			</form>
+
+			<br>
+
+			<!-- <div>
+				<a th:href="@{/profile/editpass/{username}(username = ${user.getUsername()})}">
+					<button class="btn btn-primary">Edit Password</button>
+				</a>
+			</div>
+
+			<br> -->
+
+			<div>
+				<a th:href="@{/myprofile}">
+					<button class="btn btn-primary">My Profile</button>
+				</a>
+			</div>
+		</div>
+	</body>
+</html>

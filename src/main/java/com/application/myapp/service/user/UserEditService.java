@@ -3,9 +3,10 @@ package com.application.myapp.service.user;
 import com.application.myapp.repository.UserRepository;
 import com.application.myapp.entity.UserEntity;
 import com.application.myapp.model.User;
-import com.application.myapp.model.UserRegistrationForm;
-import com.application.myapp.model.UserEditForm;
-import com.application.myapp.exception.UserNotUpdatedException;
+
+import com.application.myapp.exception.UserNotEditedException;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Service
 public class UserEditService {
 
+	private static BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
 	private UserRepository userRepository;
 
 	@Autowired
@@ -21,55 +24,58 @@ public class UserEditService {
 		this.userRepository = userRepository;
 	}
 
-	public void editUser(String executorName, String username, UserEditForm userEditForm) 
-		throws UserNotUpdatedException {
+	public void editUser(UserEntity userEntity) 
+		throws UserNotEditedException {
 
 		try {
-			UserEntity userEntity = userRepository.findByUsername(username);
-
-			if (userEditForm.getUsername() != null) {
-				userEntity.setUsername(userEditForm.getUsername());
-			}
-
-			if (userEditForm.getEmail() != null) {
-				userEntity.setEmail(userEditForm.getEmail());
-			}
-
-			if (userEditForm.getPassword() != null) {
-				userEntity.setPassword(userEditForm.getPassword());
-			}
-
-			userRepository.save(userEntity);
+			UserEntity edited = userRepository.findByUsername(userEntity.getUsername());
+			edited.setUsername(userEntity.getUsername());
+			edited.setEmail(userEntity.getEmail());
+			userRepository.save(edited);
 
 		} catch (Exception e) {
-			throw new UserNotUpdatedException(String.format(
-				"Failed to update user. Details: %s", e.toString()));
+			throw new UserNotEditedException(String.format(
+				"Failed to edit user. Details: %s", e.toString()));
 		}
 	}
 
-	public void editUserAsAdmin(String executorName, String username, UserEditForm userEditForm) 
-		throws UserNotUpdatedException {
+	// public void editUserPassword(String executorName, String username, UserEditPasswordForm userEditPasswordForm) 
+	// 	throws UserNotEditedException {
 
-		try {
-			UserEntity userEntity = userRepository.findByUsername(username);
+	// 	try {
+	// 		UserEntity userEntity = userRepository.findByUsername(username);
 
-			if (userEditForm.getUsername() != null) {
-				userEntity.setUsername(userEditForm.getUsername());
-			}
+	// 		if (userEditPasswordForm.getPassword() != null && userEditPasswordForm.getPassword() != "") {
+	// 			userEntity.setPassword(encoder.encode(userEditPasswordForm.getPassword()));
+	// 		}
 
-			if (userEditForm.getEmail() != null) {
-				userEntity.setEmail(userEditForm.getEmail());
-			}
+	// 		userRepository.save(userEntity);
 
-			if (userEditForm.getPassword() != null) {
-				userEntity.setPassword(userEditForm.getPassword());
-			}
+	// 	} catch (Exception e) {
+	// 		throw new UserNotEditedException(String.format(
+	// 			"Failed to update user. Details: %s", e.toString()));
+	// 	}
+	// }
 
-			userRepository.save(userEntity);
+	// public void editUserAsAdmin(String executorName, String username, UserEditForm userEditForm) 
+	// 	throws UserNotEditedException {
+
+	// 	try {
+	// 		UserEntity userEntity = userRepository.findByUsername(username);
+
+	// 		if (userEditForm.getUsername() != null) {
+	// 			userEntity.setUsername(userEditForm.getUsername());
+	// 		}
+
+	// 		if (userEditForm.getEmail() != null) {
+	// 			userEntity.setEmail(userEditForm.getEmail());
+	// 		}
+
+	// 		userRepository.save(userEntity);
 			
-		} catch (Exception e) {
-			throw new UserNotUpdatedException(String.format(
-				"Failed to update user. Details: %s", e.toString()));
-		}
-	}
+	// 	} catch (Exception e) {
+	// 		throw new UserNotEditedException(String.format(
+	// 			"Failed to update user. Details: %s", e.toString()));
+	// 	}
+	// }
 }

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Home</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+	</head>
+
+	<body>
+		<div class="container">
+			<h1>Welcome Home!</h1>
+
+			<br>
+
+			<div>
+				<a th:href="@{/login}">
+					<button class="btn btn-primary">Login</button>
+				</a>
+			</div>
+
+			<br>
+
+			<div>
+				<a th:href="@{/registration}">
+					<button class="btn btn-primary">Registration</button>
+				</a>
+			</div>
+		</div>
+	</body>
+</html>

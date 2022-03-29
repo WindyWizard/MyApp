@@ -2,19 +2,20 @@ package com.application.myapp.controller.user;
 
 import com.application.myapp.service.user.UserGetService;
 import com.application.myapp.model.User;
-import com.application.myapp.model.UserRegistrationForm;
-import com.application.myapp.model.UserEditForm;
 import com.application.myapp.entity.UserEntity;
 import com.application.myapp.exception.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import org.springframework.ui.Model;
 
 import java.util.List;
 import java.security.Principal;
 
-@RestController
+@Controller
 public class UserGetController {
 	
 	private UserGetService userService;
@@ -24,18 +25,21 @@ public class UserGetController {
 		this.userService = userService;
 	}
 
-	// @GetMapping("/all_users")
-	public List<User> getAllUsers() {
-		return userService.getAllUsers();
+	@GetMapping("/profiles")
+	public String getOtherUsers(Principal principal, Model model) {
+		model.addAttribute("users",  userService.getOtherUsers(principal.getName()));
+		return "/user/profile/all";
 	}
 
-	// @GetMapping("/profile/{username}")
-	public User getProfileByUsername(@PathVariable("username") String username) throws UserNotFoundException {
-		return userService.getUserByUsername(username);
+	@GetMapping("/profile/{username}")
+	public String getProfileByUsername(@PathVariable("username") String username, Model model) throws UserNotFoundException {
+		model.addAttribute(userService.getUserByUsername(username));
+		return "/user/profile/selected";
 	}
 
-	// @GetMapping("/my_profile")
-	public User getYourProfile(Principal principal) throws UserNotFoundException {
-		return userService.getUserByUsername(principal.getName());
+	@GetMapping("/myprofile")
+	public String getYourProfile(Principal principal, Model model) throws UserNotFoundException {
+		model.addAttribute("user", userService.getUserByUsername(principal.getName()));
+		return "/user/profile/my";
 	}
 }

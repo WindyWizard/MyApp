@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>All Users</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+	</head>
+
+	<body>
+		<div class="container">
+			<h1>Users List</h1>
+
+			<br>
+
+			<div th:each="user : ${users}">
+				<p>Username: <a class="link-dark" th:href="@{/profile/{username}(username = ${user.getUsername()})}" th:text="${user.getUsername()}"></a></p>
+
+				<p th:text="${'Email: ' + user.getEmail()}"></p>
+
+				<br>
+			</div>
+
+			<div>
+				<a th:href="@{/myprofile}">
+					<button class="btn btn-primary">My Profile</button>
+				</a>
+			</div>
+		</div>
+	</body>
+</html>

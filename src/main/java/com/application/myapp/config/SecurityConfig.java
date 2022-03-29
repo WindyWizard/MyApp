@@ -38,10 +38,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/registration")
 					.permitAll()
 
-				.antMatchers(HttpMethod.GET, "/my_profile")
+				.antMatchers(HttpMethod.GET, "/myprofile")
 					.hasAuthority(Permission.READ_ANY_PROFILE.name())
 
-				.antMatchers(HttpMethod.GET, "/all_users")
+				.antMatchers(HttpMethod.GET, "/profiles")
 					.hasAuthority(Permission.READ_ANY_PROFILE.name())
 
 				.antMatchers(HttpMethod.GET, "/profile/{username}")
@@ -50,25 +50,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.GET, "/profile/edit/{username}")
 					.hasAuthority(Permission.UPDATE_YOUR_PROFILE.name())
 
-				.antMatchers(HttpMethod.PATCH, "/profile/edit/{username}")
+				.antMatchers(HttpMethod.POST, "/profile/edit/{username}")
 					.hasAuthority(Permission.UPDATE_YOUR_PROFILE.name())
 
-				.antMatchers(HttpMethod.GET, "/profile/edit_as_admin/{username}")
-					.hasAuthority(Permission.UPDATE_ANY_PROFILE.name())
+				// .antMatchers(HttpMethod.GET, "/profile/edit_password/{username}")
+				// 	.hasAuthority(Permission.UPDATE_YOUR_PROFILE.name())
 
-				.antMatchers(HttpMethod.PATCH, "/profile/edit_as_admin/{username}")
-					.hasAuthority(Permission.UPDATE_ANY_PROFILE.name())
+				// .antMatchers(HttpMethod.POST, "/profile/edit_password/{username}")
+				// 	.hasAuthority(Permission.UPDATE_YOUR_PROFILE.name())
 
-				.antMatchers(HttpMethod.GET, "/profile/delete/{username}")
-					.hasAuthority(Permission.DELETE_ANY_PROFILE.name())
+				// .antMatchers(HttpMethod.GET, "/profile/edit_as_admin/{username}")
+				// 	.hasAuthority(Permission.UPDATE_ANY_PROFILE.name())
+
+				// .antMatchers(HttpMethod.PATCH, "/profile/edit_as_admin/{username}")
+				// 	.hasAuthority(Permission.UPDATE_ANY_PROFILE.name())
 
 				.antMatchers(HttpMethod.DELETE, "/profile/delete/{username}")
 					.hasAuthority(Permission.DELETE_ANY_PROFILE.name())
 			.and()
-				.httpBasic()
+				.formLogin()
+					.loginPage("/login")
+					.defaultSuccessUrl("/myprofile")
 			.and()
 				.logout()
 					.logoutSuccessUrl("/home")
+					.deleteCookies("JSESSIONID")
 			.and()
 				.csrf().disable();
 	}

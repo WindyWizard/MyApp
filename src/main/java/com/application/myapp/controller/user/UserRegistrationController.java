@@ -1,20 +1,22 @@
 package com.application.myapp.controller.user;
 
 import com.application.myapp.service.user.UserRegistrationService;
-import com.application.myapp.model.User;
-import com.application.myapp.model.UserRegistrationForm;
-import com.application.myapp.model.UserEditForm;
+import com.application.myapp.model.User;;
 import com.application.myapp.entity.UserEntity;
 import com.application.myapp.exception.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import org.springframework.validation.BindingResult;
+import javax.validation.Valid;
 
 import java.util.List;
 import java.security.Principal;
 
-@RestController
+@Controller
 public class UserRegistrationController {
 	
 	private UserRegistrationService userService;
@@ -24,14 +26,23 @@ public class UserRegistrationController {
 		this.userService = userService;
 	}
 
+	@GetMapping("/registration")
+	public String registrationPage(@ModelAttribute UserEntity userEntity) {
+		return "/user/auth/registration";
+	}
+
 	@PostMapping("/registration")
-	public String registerUser(@RequestBody UserRegistrationForm userRegistrationForm) {
+	public String registerUser(@Valid UserEntity userEntity, BindingResult bindingResult) {
 		try {
-			userService.registerUser(userRegistrationForm);
+			if (bindingResult.hasErrors()) {
+				return "/user/auth/registration";
+			}
 
-			return "User successfully registered!";
+			userService.registerUser(userEntity);
 
-		} catch (UserNotCreatedException e) {
+			return "redirect:/login";
+
+		} catch (UserNotRegisteredException e) {
 			return e.getMessage();
 		}
 	}

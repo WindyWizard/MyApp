@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Edit Password</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+	</head>
+
+	<body>
+		<div class="container">
+			<form method="post" th:action="@{/profile/edit_password/{username}(username = ${user.getUsername()})}" th:object="${userEditPasswordForm}">
+				<h1>Edit Password</h1>
+				
+				<label for="password">Password</label>
+				<input class="form-control" type="password" name="password" id="password" th:field="*{password}">
+
+				<button class="btn btn-success" type="success">Edit</button>
+			</form>
+
+			<br>
+
+			<a th:href="@{/my_profile}">
+				<button class="btn btn-primary">My Profile</button>
+			</a>
+		</div>
+	</body>
+</html>

@@ -2,10 +2,7 @@ package com.application.myapp.service.user;
 
 import com.application.myapp.repository.UserRepository;
 import com.application.myapp.entity.UserEntity;
-import com.application.myapp.model.User;
-import com.application.myapp.model.UserRegistrationForm;
-import com.application.myapp.model.UserEditForm;
-import com.application.myapp.exception.UserNotCreatedException;
+import com.application.myapp.exception.UserNotRegisteredException;
 
 import org.springframework.stereotype.Service;
 
@@ -21,13 +18,14 @@ public class UserRegistrationService {
 		this.userRepository = userRepository;
 	}
 
-	public void registerUser(UserRegistrationForm userRegistrationForm) throws UserNotCreatedException {
+	public void registerUser(UserEntity userEntity) throws UserNotRegisteredException {
 		try {
-			userRepository.save(UserEntity.toEntity(userRegistrationForm));
+			userEntity.encodePassword();
+			userRepository.save(userEntity);
 
 		} catch (Exception e) {
-			throw new UserNotCreatedException(String.format(
-				"Failed to create user. Details: %s", e.toString()));
+			throw new UserNotRegisteredException(String.format(
+				"Failed to registration user. Details: %s", e.toString()));
 		}
 	}
 }

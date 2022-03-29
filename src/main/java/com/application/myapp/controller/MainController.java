@@ -1,48 +1,29 @@
 package com.application.myapp.controller;
 
+import com.application.myapp.service.user.UserEditService;
+import com.application.myapp.service.user.UserGetService;
+
+import com.application.myapp.model.User;
+
+import com.application.myapp.entity.UserEntity;
+
 import org.springframework.stereotype.Controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import org.springframework.ui.Model;
 
 @Controller
 public class MainController {
-	
+
 	@GetMapping("/home")
 	public String homepage() {
 		return "/home";
 	}
 
-	@GetMapping("/registration")
-	public String registrationPage() {
-		return "/registration";
-	}
-
-	@GetMapping("/my_profile")
-	public String myProfilePage() {
-		return "/my_profile";
-	}
-
-	@GetMapping("/all_users")
-	public String allUsersPage() {
-		return "/all_users";
-	}
-
-	@GetMapping("/profile/{username}")
-	public String profilePage(@PathVariable("username") String username) {
-		return "/profile";
-	}
-
-	@GetMapping("/profile/edit/{username}")
-	public String editProfilePage(@PathVariable("username") String username) {
-		return "/edit_profile";
-	}
-
-	@GetMapping("/profile/edit_as_admin/{username}")
-	public String editProfilePageAsAdmin(@PathVariable("username") String username) {
-		return "/edit_profile";
-	}
-
-	@GetMapping("/profile/delete/{username}")
-	public String deleteProfilePage(@PathVariable("username") String username) {
-		return "/delete_profile";
+	@GetMapping("/login")
+	public String loginPage(@ModelAttribute UserEntity userEntity) {
+		return "/user/auth/login";
 	}
 }
