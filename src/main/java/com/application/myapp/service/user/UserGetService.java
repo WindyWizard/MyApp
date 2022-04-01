@@ -44,4 +44,14 @@ public class UserGetService {
 				"User not found. Details: %s", e.toString()));
 		}
 	}
+
+	public UserEntity getUserEntityByUsername(String username) throws UserNotFoundException {
+		try {
+			return userRepository.findByUsername(username);
+
+		} catch (Exception e) {
+			throw new UserNotFoundException(String.format(
+				"User not found. Details: %s", e.toString()));
+		}
+	}
 }

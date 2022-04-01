@@ -2,6 +2,7 @@ package com.application.myapp.service.user;
 
 import com.application.myapp.repository.UserRepository;
 import com.application.myapp.entity.UserEntity;
+import com.application.myapp.model.PasswordEditingForm;
 import com.application.myapp.model.User;
 
 import com.application.myapp.exception.UserNotEditedException;
@@ -39,23 +40,23 @@ public class UserEditService {
 		}
 	}
 
-	// public void editUserPassword(String executorName, String username, UserEditPasswordForm userEditPasswordForm) 
-	// 	throws UserNotEditedException {
+	public void editPassword(String executor, String editable, PasswordEditingForm passwordEditingForm) 
+		throws UserNotEditedException {
 
-	// 	try {
-	// 		UserEntity userEntity = userRepository.findByUsername(username);
+		try {
+			UserEntity editableUser = userRepository.findByUsername(editable);
 
-	// 		if (userEditPasswordForm.getPassword() != null && userEditPasswordForm.getPassword() != "") {
-	// 			userEntity.setPassword(encoder.encode(userEditPasswordForm.getPassword()));
-	// 		}
+			if (passwordEditingForm.getPassword() != null && passwordEditingForm.getPassword() != "") {
+				editableUser.setPassword(encoder.encode(passwordEditingForm.getPassword()));
+			}
 
-	// 		userRepository.save(userEntity);
+			userRepository.save(editableUser);
 
-	// 	} catch (Exception e) {
-	// 		throw new UserNotEditedException(String.format(
-	// 			"Failed to update user. Details: %s", e.toString()));
-	// 	}
-	// }
+		} catch (Exception e) {
+			throw new UserNotEditedException(String.format(
+				"Failed to update user. Details: %s", e.toString()));
+		}
+	}
 
 	// public void editUserAsAdmin(String executorName, String username, UserEditForm userEditForm) 
 	// 	throws UserNotEditedException {

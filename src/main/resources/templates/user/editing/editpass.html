@@ -10,18 +10,19 @@
 
 	<body>
 		<div class="container">
-			<form method="post" th:action="@{/profile/edit_password/{username}(username = ${user.getUsername()})}" th:object="${userEditPasswordForm}">
+			<form method="post" th:action="@{/profile/edit/{username}/password(username = ${passwordEditingForm.getUsername()})}" th:object="${passwordEditingForm}">
 				<h1>Edit Password</h1>
 				
 				<label for="password">Password</label>
 				<input class="form-control" type="password" name="password" id="password" th:field="*{password}">
+				<div class="alert alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
 
 				<button class="btn btn-success" type="success">Edit</button>
 			</form>
 
 			<br>
 
-			<a th:href="@{/my_profile}">
+			<a th:href="@{/myprofile}">
 				<button class="btn btn-primary">My Profile</button>
 			</a>
 		</div>

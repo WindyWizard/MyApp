@@ -15,22 +15,24 @@
 				
 				<label for="username">Username</label>
 				<input class="form-control" type="text" name="username" id="username" th:field="*{username}">
+				<div class="alert alert-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
 				
 				<label for="email">Email</label>
 				<input class="form-control" type="email" name="email" id="email" th:field="*{email}">
+				<div class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
 
 				<button class="btn btn-success" type="success">Edit</button>
 			</form>
 
 			<br>
 
-			<!-- <div>
-				<a th:href="@{/profile/editpass/{username}(username = ${user.getUsername()})}">
+			<div>
+				<a th:href="@{/profile/edit/{username}/password(username = ${userEntity.getUsername()})}">
 					<button class="btn btn-primary">Edit Password</button>
 				</a>
 			</div>
 
-			<br> -->
+			<br>
 
 			<div>
 				<a th:href="@{/myprofile}">
