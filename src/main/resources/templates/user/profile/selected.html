@@ -14,6 +14,16 @@
 			<p th:text="${'Username: ' + user.getUsername()}"></p>
 			<p th:text="${'Email: ' + user.getEmail()}"></p>
 
+			<div th:if="${executor.getRole().toString() == 'ROLE_ADMIN' || executor.getRole().toString() == 'ROLE_SUPERADMIN'}">
+				<div>
+					<a th:href="@{/profile/edit_as_admin/{username}(username = ${user.getUsername()})}">
+						<button class="btn btn-primary">Edit User</button>
+					</a>
+				</div>
+
+				<br>
+			</div>
+
 			<div>
 				<a th:href="@{/profiles}">
 					<button class="btn btn-primary">Other Users</button>

@@ -53,20 +53,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(HttpMethod.POST, "/profile/edit/{username}")
 					.hasAuthority(Permission.UPDATE_YOUR_PROFILE.name())
 
-				// .antMatchers(HttpMethod.GET, "/profile/edit_password/{username}")
-				// 	.hasAuthority(Permission.UPDATE_YOUR_PROFILE.name())
+				.antMatchers(HttpMethod.GET, "/profile/edit/{username}/password")
+					.hasAuthority(Permission.UPDATE_YOUR_PROFILE.name())
 
-				// .antMatchers(HttpMethod.POST, "/profile/edit_password/{username}")
-				// 	.hasAuthority(Permission.UPDATE_YOUR_PROFILE.name())
+				.antMatchers(HttpMethod.POST, "/profile/edit/{username}/password")
+					.hasAuthority(Permission.UPDATE_YOUR_PROFILE.name())
 
-				// .antMatchers(HttpMethod.GET, "/profile/edit_as_admin/{username}")
-				// 	.hasAuthority(Permission.UPDATE_ANY_PROFILE.name())
+				.antMatchers(HttpMethod.GET, "/profile/edit_as_admin/{username}")
+					.hasAuthority(Permission.UPDATE_ANY_PROFILE.name())
 
-				// .antMatchers(HttpMethod.PATCH, "/profile/edit_as_admin/{username}")
-				// 	.hasAuthority(Permission.UPDATE_ANY_PROFILE.name())
+				.antMatchers(HttpMethod.POST, "/profile/edit_as_admin/{username}")
+					.hasAuthority(Permission.UPDATE_ANY_PROFILE.name())
 
-				.antMatchers(HttpMethod.DELETE, "/profile/delete/{username}")
+				.antMatchers(HttpMethod.POST, "/profile/delete/{username}")
 					.hasAuthority(Permission.DELETE_ANY_PROFILE.name())
+
+				.antMatchers(HttpMethod.GET, "/profile/edit_user_rights/{username}")
+					.hasAuthority(Permission.EDIT_USER_RIGHTS.name())
+
+				.antMatchers(HttpMethod.POST, "/profile/edit_user_rights/{username}")
+					.hasAuthority(Permission.EDIT_USER_RIGHTS.name())
+
 			.and()
 				.formLogin()
 					.loginPage("/login")

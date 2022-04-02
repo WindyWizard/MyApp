@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.security.Principal;
 
-@RestController
+@Controller
 public class UserDeleteController {
 	
 	private UserDeleteService userService;
@@ -23,15 +23,15 @@ public class UserDeleteController {
 		this.userService = userService;
 	}
 
-	@DeleteMapping("/profile/{username}")
+	@PostMapping("/profile/delete/{username}")
 	public String deleteUser(@PathVariable("username") String username) {
 		try {
 			userService.deleteUser(username);
 
-			return "User successfuly deleted!";
+			return "redirect:/profiles";
 
 		} catch (UserNotDeletedException e) {
-			return e.getMessage();
+			return "/message/error";
 		}
 	}
 }

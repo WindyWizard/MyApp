@@ -10,7 +10,7 @@
 
 	<body>
 		<div class="container">
-			<form method="post" th:action="@{/profile/edit/{username}(username = ${userEditingForm.getUsername()})}" th:object="${userEditingForm}">
+			<form method="post" th:action="@{/profile/edit_as_admin/{username}(username = ${userEditingForm.getUsername()})}" th:object="${userEditingForm}">
 				<h1>Edit Profile</h1>
 				
 				<label for="username">Username</label>
@@ -26,9 +26,27 @@
 
 			<br>
 
+			<form method="post" th:action="@{/profile/delete/{username}(username = ${userEditingForm.getUsername()})}">
+				<button class="btn btn-danger" type="success">Delete</button>
+			</form>
+
+			<br>		
+
+			<div th:if="${executor.getRole().toString() == 'ROLE_SUPERADMIN'}">
+				
+				<div>
+					<a th:href="@{/profile/edit_user_rights/{username}(username = ${userEditingForm.getUsername()})}">
+						<button class="btn btn-primary">Edit User Rights</button>
+					</a>
+				</div>
+
+				<br>	
+
+			</div>
+
 			<div>
-				<a th:href="@{/profile/edit/{username}/password(username = ${userEditingForm.getUsername()})}">
-					<button class="btn btn-primary">Edit Password</button>
+				<a th:href="@{/profiles}">
+					<button class="btn btn-primary">Other Users</button>
 				</a>
 			</div>
 

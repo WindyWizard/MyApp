@@ -12,7 +12,15 @@ public enum Role {
 		Permission.READ_ANY_PROFILE,
 		Permission.UPDATE_YOUR_PROFILE,
 		Permission.UPDATE_ANY_PROFILE,
-		Permission.DELETE_ANY_PROFILE));
+		Permission.DELETE_ANY_PROFILE)),
+
+	ROLE_SUPERADMIN(Set.of(
+		Permission.CREATE_PROFILE,
+		Permission.READ_ANY_PROFILE,
+		Permission.UPDATE_YOUR_PROFILE,
+		Permission.UPDATE_ANY_PROFILE,
+		Permission.DELETE_ANY_PROFILE,
+		Permission.EDIT_USER_RIGHTS));
 
 	private Set<Permission> permissions;
 

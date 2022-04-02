@@ -3,6 +3,7 @@ package com.application.myapp.service.user;
 import com.application.myapp.repository.UserRepository;
 import com.application.myapp.entity.UserEntity;
 import com.application.myapp.model.User;
+import com.application.myapp.entity.Role;
 import com.application.myapp.exception.UserNotFoundException;
 
 import org.springframework.stereotype.Service;
@@ -25,14 +26,24 @@ public class UserGetService {
 	}
 
 	public List<User> getOtherUsers(String username) {
-		List<User> users = new ArrayList<>();
+		List<UserEntity> entities = new ArrayList<>();
 
 		(userRepository.findAll())
-			.forEach(user -> users.add(User.toModel(user)));
+			.forEach(user -> entities.add(user));
 
-		return users.stream()
-			.filter(user -> !username.equals(user.getUsername()))
-				.collect(Collectors.toList());
+		List<User> models = new ArrayList<>();
+
+		entities.stream()
+			.filter(entity -> entity.getRole() != Role.ROLE_SUPERADMIN)
+				.forEach(e -> models.add(User.toModel(e)));
+
+		List<User> result = new ArrayList<>();
+
+		models.stream()
+			.filter(model -> !model.getUsername().equals(username))
+				.forEach(m -> result.add(m));
+
+		return result;
 	}
 
 	public User getUserByUsername(String username) throws UserNotFoundException {

@@ -32,8 +32,9 @@ public class UserGetController {
 	}
 
 	@GetMapping("/profile/{username}")
-	public String getProfileByUsername(@PathVariable("username") String username, Model model) throws UserNotFoundException {
-		model.addAttribute(userService.getUserByUsername(username));
+	public String getProfileByUsername(@PathVariable("username") String username, Principal principal, Model model) throws UserNotFoundException {
+		model.addAttribute("user", userService.getUserByUsername(username));
+		model.addAttribute("executor", userService.getUserEntityByUsername(principal.getName()));
 		return "/user/profile/selected";
 	}
 
