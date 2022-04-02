@@ -1,15 +1,11 @@
 package com.application.myapp.service.user;
 
-import com.application.myapp.repository.UserRepository;
-import com.application.myapp.entity.UserEntity;
-import com.application.myapp.model.User;
-
-import com.application.myapp.exception.UserNotDeletedException;
-
+import com.application.myapp.repository.user.UserRepository;
+import com.application.myapp.entity.user.UserEntity;
+import com.application.myapp.model.user.User;
+import com.application.myapp.exception.user.UserNotDeletedException;
 import org.springframework.transaction.annotation.Transactional;
-
 import org.springframework.stereotype.Service;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Service

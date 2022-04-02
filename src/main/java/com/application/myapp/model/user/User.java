@@ -1,8 +1,7 @@
-package com.application.myapp.model;
+package com.application.myapp.model.user;
 
-import com.application.myapp.entity.UserEntity;
-import com.application.myapp.entity.Role;
-
+import com.application.myapp.entity.user.UserEntity;
+import com.application.myapp.entity.user.Role;
 import lombok.*;
 
 @Data

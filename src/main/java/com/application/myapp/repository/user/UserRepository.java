@@ -1,7 +1,6 @@
-package com.application.myapp.repository;
+package com.application.myapp.repository.user;
 
-import com.application.myapp.entity.UserEntity;
-
+import com.application.myapp.entity.user.UserEntity;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<UserEntity, Long> {

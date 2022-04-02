@@ -1,18 +1,14 @@
 package com.application.myapp.service.user;
 
-import com.application.myapp.repository.UserRepository;
-import com.application.myapp.entity.UserEntity;
-import com.application.myapp.model.User;
-import com.application.myapp.entity.Role;
-import com.application.myapp.exception.UserNotFoundException;
-
+import com.application.myapp.repository.user.UserRepository;
+import com.application.myapp.entity.user.UserEntity;
+import com.application.myapp.model.user.User;
+import com.application.myapp.entity.user.Role;
+import com.application.myapp.exception.user.UserNotFoundException;
 import org.springframework.stereotype.Service;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.List;
 import java.util.ArrayList;
-
 import java.util.stream.Collectors;
 
 @Service

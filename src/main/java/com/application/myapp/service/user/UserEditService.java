@@ -1,18 +1,13 @@
 package com.application.myapp.service.user;
 
-import com.application.myapp.repository.UserRepository;
-import com.application.myapp.entity.UserEntity;
-
-import com.application.myapp.model.User;
-import com.application.myapp.model.UserEditingForm;
-import com.application.myapp.model.PasswordEditingForm;
-
-import com.application.myapp.exception.UserNotEditedException;
-
+import com.application.myapp.repository.user.UserRepository;
+import com.application.myapp.entity.user.UserEntity;
+import com.application.myapp.model.user.User;
+import com.application.myapp.model.user.UserEditingForm;
+import com.application.myapp.model.user.PasswordEditingForm;
+import com.application.myapp.exception.user.UserNotEditedException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import org.springframework.stereotype.Service;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
@@ -27,11 +22,11 @@ public class UserEditService {
 		this.userRepository = userRepository;
 	}
 
-	public void editUser(UserEditingForm userEditingForm) 
+	public void editUser(String username, UserEditingForm userEditingForm) 
 		throws UserNotEditedException {
 
 		try {
-			UserEntity edited = userRepository.findByUsername(userEditingForm.getUsername());
+			UserEntity edited = userRepository.findByUsername(username);
 			edited.setUsername(userEditingForm.getUsername());
 			edited.setEmail(userEditingForm.getEmail());
 			userRepository.save(edited);

@@ -1,7 +1,6 @@
-package com.application.myapp.model;
+package com.application.myapp.model.user;
 
-import com.application.myapp.entity.UserEntity;
-
+import com.application.myapp.entity.user.UserEntity;
 import lombok.*;
 import javax.validation.constraints.*;
 

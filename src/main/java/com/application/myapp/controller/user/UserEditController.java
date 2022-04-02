@@ -2,25 +2,17 @@ package com.application.myapp.controller.user;
 
 import com.application.myapp.service.user.UserEditService;
 import com.application.myapp.service.user.UserGetService;
-
-import com.application.myapp.model.User;
-import com.application.myapp.model.PasswordEditingForm;
-import com.application.myapp.model.UserEditingForm;
-
-import com.application.myapp.entity.UserEntity;
-import com.application.myapp.exception.*;
-
+import com.application.myapp.model.user.User;
+import com.application.myapp.model.user.PasswordEditingForm;
+import com.application.myapp.model.user.UserEditingForm;
+import com.application.myapp.entity.user.UserEntity;
+import com.application.myapp.exception.user.UserNotEditedException;
 import org.springframework.stereotype.Controller;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import org.springframework.validation.BindingResult;
 import javax.validation.Valid;
-
 import org.springframework.ui.Model;
-
-import java.util.List;
 import java.security.Principal;
 
 @Controller
@@ -47,29 +39,30 @@ public class UserEditController {
 				return "/user/editing/edit";	
 
 			} catch (Exception e) {
+				model.addAttribute("error", e);
 				return "/message/error";
 			}
 			
-			
 		} else {
-
+			model.addAttribute("error", "You can't edit other people's profiles!");
 			return "/message/error";
 		}
 	}
 
 	@PostMapping("/profile/edit/{username}")
-	public String editUser(@PathVariable("username") String username, 
+	public String editUser(@PathVariable("username") String username, Model model,
 		@Valid UserEditingForm userEditingForm, BindingResult bindingResult) {
 		try {
 			if (bindingResult.hasErrors()) {
 				return "/message/error";
 			}
 
-			userEditService.editUser(userEditingForm);
+			userEditService.editUser(username, userEditingForm);
 
-			return "redirect:/myprofile";
+			return "redirect:/logout";
 
 		} catch (UserNotEditedException e) {
+			model.addAttribute("error", e);
 			return "/message/error";
 		}
 	}
@@ -84,13 +77,13 @@ public class UserEditController {
 			return "/user/editing/editpass";	
 			
 		} else {
-
+			model.addAttribute("error", "You can't edit other people's profiles!");
 			return "/message/error";
 		}
 	}
 
 	@PostMapping("/profile/edit/{username}/password")
-	public String editPassword(@PathVariable("username") String username, Principal principal,
+	public String editPassword(@PathVariable("username") String username, Principal principal, Model model,
 		@Valid PasswordEditingForm passwordEditingForm, BindingResult bindingResult) {
 		try {
 
@@ -103,6 +96,7 @@ public class UserEditController {
 			return "redirect:/myprofile";
 
 		} catch (UserNotEditedException e) {
+			model.addAttribute("error", e);
 			return "/message/error";
 		}
 	}
@@ -118,23 +112,25 @@ public class UserEditController {
 			return "/user/editing/edit_as_admin";	
 
 		} catch (Exception e) {
+			model.addAttribute("error", e);
 			return "/message/error";
 		}
 	}
 
 	@PostMapping("/profile/edit_as_admin/{username}")
-	public String editUserAsAdmin(@PathVariable("username") String username,
+	public String editUserAsAdmin(@PathVariable("username") String username, Model model,
 		@Valid UserEditingForm userEditingForm, BindingResult bindingResult) {
 		try {
 			if (bindingResult.hasErrors()) {
+				model.addAttribute("error", "You entered incorrect data for editing!");
 				return "/message/error";
 			}
 
-			userEditService.editUser(userEditingForm);
-
+			userEditService.editUser(username, userEditingForm);
 			return "redirect:/profiles";
 
 		} catch (UserNotEditedException e) {
+			model.addAttribute("error", e);
 			return "/message/error";
 		}
 	}

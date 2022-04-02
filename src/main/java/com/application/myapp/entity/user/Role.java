@@ -1,4 +1,4 @@
-package com.application.myapp.entity;
+package com.application.myapp.entity.user;
 
 import java.util.Set;
 

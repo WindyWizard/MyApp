@@ -1,7 +1,6 @@
-package com.application.myapp.entity;
+package com.application.myapp.entity.user;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
