@@ -15,11 +15,11 @@ import org.springframework.ui.Model;
 @Controller
 public class UserRegistrationController {
 	
-	private UserRegistrationService userService;
+	private UserRegistrationService userRegistrationService;
 
 	@Autowired
-	public UserRegistrationController(UserRegistrationService userService) {
-		this.userService = userService;
+	public UserRegistrationController(UserRegistrationService userRegistrationService) {
+		this.userRegistrationService = userRegistrationService;
 	}
 
 	@GetMapping("/registration")
@@ -34,7 +34,7 @@ public class UserRegistrationController {
 				return "/user/auth/registration";
 			}
 
-			userService.registerUser(userEntity);
+			userRegistrationService.registerUser(userEntity);
 
 			return "redirect:/login";
 

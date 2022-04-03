@@ -11,8 +11,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;  
 
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)  
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private SecurityService securityService;
@@ -25,51 +27,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
+
+				// HOME
+
 				.antMatchers(HttpMethod.GET, "/home")
 					.permitAll()
+
+				// REGISTRATION
 
 				.antMatchers(HttpMethod.GET, "/registration")
 					.permitAll()
 
 				.antMatchers(HttpMethod.POST, "/registration")
 					.permitAll()
-
-				.antMatchers(HttpMethod.GET, "/myprofile")
-					.hasAuthority(Permission.READ_ANY_PROFILE.name())
-
-				.antMatchers(HttpMethod.GET, "/profiles")
-					.hasAuthority(Permission.READ_ANY_PROFILE.name())
-
-				.antMatchers(HttpMethod.GET, "/profile/{username}")
-					.hasAuthority(Permission.READ_ANY_PROFILE.name())
-
-				.antMatchers(HttpMethod.GET, "/profile/edit/{username}")
-					.hasAuthority(Permission.UPDATE_YOUR_PROFILE.name())
-
-				.antMatchers(HttpMethod.POST, "/profile/edit/{username}")
-					.hasAuthority(Permission.UPDATE_YOUR_PROFILE.name())
-
-				.antMatchers(HttpMethod.GET, "/profile/edit/{username}/password")
-					.hasAuthority(Permission.UPDATE_YOUR_PROFILE.name())
-
-				.antMatchers(HttpMethod.POST, "/profile/edit/{username}/password")
-					.hasAuthority(Permission.UPDATE_YOUR_PROFILE.name())
-
-				.antMatchers(HttpMethod.GET, "/profile/edit_as_admin/{username}")
-					.hasAuthority(Permission.UPDATE_ANY_PROFILE.name())
-
-				.antMatchers(HttpMethod.POST, "/profile/edit_as_admin/{username}")
-					.hasAuthority(Permission.UPDATE_ANY_PROFILE.name())
-
-				.antMatchers(HttpMethod.POST, "/profile/delete/{username}")
-					.hasAuthority(Permission.DELETE_ANY_PROFILE.name())
-
-				.antMatchers(HttpMethod.GET, "/profile/edit_user_rights/{username}")
-					.hasAuthority(Permission.EDIT_USER_RIGHTS.name())
-
-				.antMatchers(HttpMethod.POST, "/profile/edit_user_rights/{username}")
-					.hasAuthority(Permission.EDIT_USER_RIGHTS.name())
-
+					
 			.and()
 				.formLogin()
 					.loginPage("/login")

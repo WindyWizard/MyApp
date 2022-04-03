@@ -7,22 +7,24 @@ import com.application.myapp.exception.user.UserNotDeletedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 
 @Controller
 public class UserDeleteController {
 	
-	private UserDeleteService userService;
+	private UserDeleteService userDeleteService;
 
 	@Autowired
-	public UserDeleteController(UserDeleteService userService) {
-		this.userService = userService;
+	public UserDeleteController(UserDeleteService userDeleteService) {
+		this.userDeleteService = userDeleteService;
 	}
 
 	@PostMapping("/profile/delete/{username}")
+	@PreAuthorize("hasAuthority('DELETE_ANY_PROFILE')")
 	public String deleteUser(@PathVariable("username") String username, Model model) {
 		try {
-			userService.deleteUser(username);
+			userDeleteService.deleteUser(username);
 
 			return "redirect:/profiles";
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import java.security.Principal;
 
 @Controller
@@ -26,6 +27,7 @@ public class UserRightsController {
 	}
 
 	@GetMapping("/profile/edit_user_rights/{username}")
+	@PreAuthorize("hasAuthority('EDIT_USER_RIGHTS')")
 	public String editUserRights_Page(@PathVariable("username") String username, Principal principal, Model model) {
 		try {
 			if (!username.equals(principal.getName())) {
@@ -53,6 +55,7 @@ public class UserRightsController {
 	}
 
 	@PostMapping("/profile/edit_user_rights/{username}")
+	@PreAuthorize("hasAuthority('EDIT_USER_RIGHTS')")
 	public String editUserRights(@PathVariable("username") String username, Model model, 
 		UserRightsEditingForm userRightsEditingForm) {
 		try {
