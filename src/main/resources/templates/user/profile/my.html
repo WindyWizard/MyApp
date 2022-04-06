@@ -16,6 +16,22 @@
 			<p th:text="${'Email: ' + user.getEmail()}"></p>
 
 			<div>
+				<a th:href="@{/posts/all}">
+					<button class="btn btn-primary">All Posts</button>
+				</a>
+			</div>
+
+			<br>
+
+			<div>
+				<a th:href="@{/posts/create}">
+					<button class="btn btn-primary">Create Post</button>
+				</a>
+			</div>
+
+			<br>
+
+			<div>
 				<a th:href="@{/profiles}">
 					<button class="btn btn-primary">Other Users</button>
 				</a>

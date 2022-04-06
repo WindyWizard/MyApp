@@ -32,7 +32,7 @@ public class PostEditController {
 		try {
 			model.addAttribute("postEditingForm", 
 				new PostEditingForm(title, postGetService.getPostByTitle(title).getContent()));
-			return "/";	
+			return "/post/edit";	
 
 		} catch (Exception e) {
 			model.addAttribute("error", e);
@@ -51,7 +51,7 @@ public class PostEditController {
 
 			postEditService.editPost(title, postEditingForm);
 
-			return "";
+			return "redirect:/posts/all";
 
 		} catch (PostNotEditedException e) {
 			model.addAttribute("error", e);

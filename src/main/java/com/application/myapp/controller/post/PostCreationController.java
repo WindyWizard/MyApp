@@ -25,21 +25,22 @@ public class PostCreationController {
 
 	@GetMapping("/posts/create")
 	@PreAuthorize("hasAuthority('CREATE_POSTS')")
-	public String postCreationPage(@ModelAttribute PostEntity postEntity) {
-		return "/post/";
+	public String postCreationPage(@ModelAttribute("post") PostEntity postEntity) {
+		return "/post/create";
 	}
 
 	@PostMapping("/posts/create")
 	@PreAuthorize("hasAuthority('CREATE_POSTS')")
-	public String createPost(@Valid PostEntity postEntity, BindingResult bindingResult) {
+	public String createPost(@Valid PostEntity postEntity, BindingResult bindingResult,
+		Principal principal) {
 		try {
 			if (bindingResult.hasErrors()) {
-				return "/post/";
+				return "/post/create";
 			}
 
-			postCreationService.createPost(postEntity);
+			postCreationService.createPost(principal.getName(), postEntity);
 
-			return "";
+			return "redirect:/posts/all";
 
 		} catch (PostNotCreatedException e) {
 			return e.getMessage();

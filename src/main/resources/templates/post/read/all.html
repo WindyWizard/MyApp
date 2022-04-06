@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:nl2br="https://github.com/bufferings/thymeleaf-extras-nl2br">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>All Posts</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+	</head>
+
+	<body>
+		<div class="container">
+			<h1>All Posts</h1>
+
+			<br>
+
+			<div th:each="post : ${posts}">
+				<p><a class="link-dark" th:href="@{/posts/selected/{title}(title = ${post.getTitle()})}" th:text="${post.getTitle()}"></a></p>
+
+				<p nl2br:text="${post.getContent()}"></p>
+
+				<br>
+			</div>
+
+			<div>
+				<a th:href="@{/myprofile}">
+					<button class="btn btn-primary">My Profile</button>
+				</a>
+			</div>
+
+			<br>
+
+			<div>
+				<a th:href="@{/profiles}">
+					<button class="btn btn-primary">Other Users</button>
+				</a>
+			</div>
+
+			<br>
+		</div>
+	</body>
+</html>

@@ -16,8 +16,9 @@ public class PostCreationService {
 		this.postRepository = postRepository;
 	}
 
-	public void createPost(PostEntity postEntity) throws PostNotCreatedException {
+	public void createPost(String username, PostEntity postEntity) throws PostNotCreatedException {
 		try {
+			postEntity.setAuthor(username);
 			postRepository.save(postEntity);
 
 		} catch (Exception e) {

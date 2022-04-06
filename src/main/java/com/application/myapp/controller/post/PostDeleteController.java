@@ -25,7 +25,7 @@ public class PostDeleteController {
 		try {
 			postDeleteService.deletePost(title);
 
-			return "";
+			return "redirect:/posts/all";
 
 		} catch (PostNotDeletedException e) {
 			model.addAttribute("error", e);

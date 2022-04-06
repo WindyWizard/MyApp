@@ -24,7 +24,7 @@ public class PostGetController {
 	@PreAuthorize("hasAuthority('READ_POSTS')")
 	public String getAllPosts(Principal principal, Model model) {
 		model.addAttribute("posts",  postService.getAllPosts());
-		return "/";
+		return "/post/read/all";
 	}
 
 	@GetMapping("/posts/selected/{title}")
@@ -32,6 +32,6 @@ public class PostGetController {
 	public String getPostByTitle(@PathVariable("title") String title, Principal principal, Model model) 
 	throws PostNotFoundException {
 		model.addAttribute("post", postService.getPostByTitle(title));
-		return "/";
+		return "/post/read/selected";
 	}
 }

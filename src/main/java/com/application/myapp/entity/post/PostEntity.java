@@ -13,8 +13,6 @@ public class PostEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotEmpty(message = "Author's name cannot be empty")
-	@Size(min = 2, max = 15, message = "Author's name must be between 2 and 15 characters")
 	@Column(name = "author")
 	private String author;
 
