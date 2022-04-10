@@ -15,16 +15,45 @@
 			<br>
 
 			<h2 th:text="${post.getTitle()}"></h2>
+			<br>
 			<p th:text="${'Author: ' + post.getAuthor()}"></p>
+			<br>
+
+				<div>
+					<img th:src="@{'/img/' + ${post.getImage()}}" width="50%">
+				</div>
+
+				<br>
 			<p nl2br:text="${post.getContent()}"></p>
 
-			<div>
+			<br>
+
+			<h2>Comments</h2>
+
+			<div th:each="comment : ${post.getComments()}">
+				<p class="fw-bold" th:text="${comment.getAuthor()}"></p>
+				<p th:text="${comment.getComment()}"></p>
+				<p class="fw-bold">***</p>
+				<br>
+			</div>
+
+			<form method="post" th:action="@{/posts/{title}/comment(title = ${post.getTitle()})}">
+				<label for="comment">New Comment</label>
+				<textarea rows="3" class="form-control" type="text" name="comment" id="comment"></textarea>
+				<br>
+
+				<button class="btn btn-success" type="success">Add</button>
+			</form>
+
+			<br>
+
+			<div th:if="${executor.equals(post.getAuthor())}">
 				<a th:href="@{/posts/edit/{title}(title = ${post.getTitle()})}">
 					<button class="btn btn-primary">Edit Post</button>
 				</a>
 			</div>
 
-			<br>
+			<br th:if="${executor.equals(post.getAuthor())}">
 
 			<div>
 				<a th:href="@{/posts/all}">

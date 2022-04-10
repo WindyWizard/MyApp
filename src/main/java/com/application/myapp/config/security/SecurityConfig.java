@@ -32,6 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 				.antMatchers(HttpMethod.GET, "/home")
 					.permitAll()
+				.antMatchers(HttpMethod.POST, "/image/upload")
+					.permitAll()
 
 				// REGISTRATION
 

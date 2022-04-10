@@ -30,7 +30,7 @@ public class UserGetService {
 		List<User> models = new ArrayList<>();
 
 		entities.stream()
-			.filter(entity -> entity.getRole() != Role.ROLE_SUPERADMIN)
+			.filter(entity -> entity.getRole() != Role.ROLE_SUPERADMIN && entity.getRole() != Role.ROLE_ADMIN)
 				.forEach(e -> models.add(User.toModel(e)));
 
 		List<User> result = new ArrayList<>();

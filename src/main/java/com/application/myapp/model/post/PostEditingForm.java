@@ -14,6 +14,8 @@ public class PostEditingForm {
 	@NotEmpty(message = "Content cannot be empty")
 	private String content;
 
+	private String image;
+
 	public PostEditingForm() {
 		
 	}
@@ -21,5 +23,11 @@ public class PostEditingForm {
 	public PostEditingForm(String title, String content) {
 		this.title = title;
 		this.content = content;
+	}
+
+	public PostEditingForm(String title, String content, String image) {
+		this.title = title;
+		this.content = content;
+		this.image = image;
 	}
 }

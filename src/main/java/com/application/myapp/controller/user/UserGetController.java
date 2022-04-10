@@ -41,6 +41,7 @@ public class UserGetController {
 	public String getYourProfile(Principal principal, Model model) throws UserNotFoundException {
 		try {
 			model.addAttribute("user", userService.getUserByUsername(principal.getName()));
+			model.addAttribute("role", userService.getUserEntityByUsername(principal.getName()).getRole().toString());
 			return "/user/profile/my";
 
 		} catch (UserNotFoundException e) {

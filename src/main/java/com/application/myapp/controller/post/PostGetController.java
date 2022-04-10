@@ -32,6 +32,7 @@ public class PostGetController {
 	public String getPostByTitle(@PathVariable("title") String title, Principal principal, Model model) 
 	throws PostNotFoundException {
 		model.addAttribute("post", postService.getPostByTitle(title));
+		model.addAttribute("executor", principal.getName());
 		return "/post/read/selected";
 	}
 }

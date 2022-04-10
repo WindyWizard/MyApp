@@ -15,9 +15,17 @@
 			<br>
 
 			<div th:each="post : ${posts}">
-				<p><a class="link-dark" th:href="@{/posts/selected/{title}(title = ${post.getTitle()})}" th:text="${post.getTitle()}"></a></p>
+				<h2><a class="link-dark" th:href="@{/posts/selected/{title}(title = ${post.getTitle()})}" th:text="${post.getTitle()}"></a></h2>
 
-				<p nl2br:text="${post.getContent()}"></p>
+				<br>
+
+				<div>
+					<img th:src="@{'/img/' + ${post.getImage()}}" width="50%">
+				</div>
+
+				<br>
+
+				<p nl2br:text="${post.getContent().substring(0, 1000) + '...'}"></p>
 
 				<br>
 			</div>

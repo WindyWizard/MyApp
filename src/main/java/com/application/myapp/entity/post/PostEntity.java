@@ -1,8 +1,11 @@
 package com.application.myapp.entity.post;
 
+import com.application.myapp.entity.comment.CommentEntity;
 import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Data
@@ -24,4 +27,11 @@ public class PostEntity {
 	@NotEmpty(message = "Content cannot be empty")
 	@Column(name = "content")
 	private String content;
+
+	@Column(name = "image")
+	private String image;
+
+	@Column(name = "comments")
+	@OneToMany(mappedBy = "postId", fetch = FetchType.EAGER)
+	private List<CommentEntity> comments = new ArrayList<>();
 }

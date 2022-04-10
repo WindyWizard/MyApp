@@ -12,8 +12,20 @@
 		<div class="container">
 			<h1>Your Profile</h1>
 
-			<p th:text="${'Username: ' + user.getUsername()}"></p>
+			<br>
+
+			<div th:if="${role.equals('ROLE_ADMIN')}">
+				<p class="admin">Admin</p>
+			</div>
+
+			<div th:if="${role.equals('ROLE_SUPERADMIN')}">
+				<p class="superadmin">SuperAdmin</p>
+			</div>
+
+			<h2 th:text="${'Username: ' + user.getUsername()}"></h2>
 			<p th:text="${'Email: ' + user.getEmail()}"></p>
+
+			<br>
 
 			<div>
 				<a th:href="@{/posts/all}">

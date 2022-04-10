@@ -30,8 +30,15 @@ public class PostEditController {
 	@PreAuthorize("hasAuthority('EDIT_POSTS')")
 	public String postEditingPage(@PathVariable("title") String title, Principal principal, Model model) {
 		try {
+			PostEntity post = postGetService.getPostByTitle(title);
+
+			if (!post.getAuthor().equals(principal.getName())) {
+				model.addAttribute("error", "You can't edit other users' posts!");
+				return "/message/error";
+			}
+
 			model.addAttribute("postEditingForm", 
-				new PostEditingForm(title, postGetService.getPostByTitle(title).getContent()));
+				new PostEditingForm(title, post.getContent()));
 			return "/post/edit";	
 
 		} catch (Exception e) {
@@ -43,7 +50,7 @@ public class PostEditController {
 	@PostMapping("/posts/edit/{title}")
 	@PreAuthorize("hasAuthority('EDIT_POSTS')")
 	public String editPost(@PathVariable("title") String title, Model model,
-		@Valid PostEditingForm postEditingForm, BindingResult bindingResult) {
+		@Valid PostEditingForm postEditingForm, BindingResult bindingResult, Principal principal) {
 		try {
 			if (bindingResult.hasErrors()) {
 				return "/message/error";
