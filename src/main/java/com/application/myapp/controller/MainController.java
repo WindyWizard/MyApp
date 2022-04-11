@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class MainController {
 
+	@GetMapping("/")
+	public String homepageRedirect() {
+		return "/home";
+	}
+
 	@GetMapping("/home")
 	public String homepage() {
 		return "/home";
