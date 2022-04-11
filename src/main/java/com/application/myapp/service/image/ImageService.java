@@ -35,11 +35,9 @@ public class ImageService {
 
             String fullPathToImage = uploadPath + "/" + image.getOriginalFilename().toString();
 
-            if (Files.exists(Paths.get(fullPathToImage))) {
-                Files.delete(Paths.get(fullPathToImage));
+            if (!Files.exists(Paths.get(fullPathToImage))) {
+                Files.copy(image.getInputStream(), root.resolve(image.getOriginalFilename()));
             }
-
-            Files.copy(image.getInputStream(), root.resolve(image.getOriginalFilename()));
         } catch (Exception e) {
             throw new ImageNotUploadedException(String.format(
                 "Failed to upload image. Details: %s", e.toString()));
