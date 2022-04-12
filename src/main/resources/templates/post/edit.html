@@ -3,9 +3,9 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Edit Profile</title>
+		<title>Edit Post</title>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
-		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/edit.css}">
 	</head>
 
 	<body>
@@ -41,7 +41,7 @@
 		
 		<div class="container">
 			<form method="post" th:action="@{/posts/edit/{title}(title = ${postEditingForm.getTitle()})}" th:object="${postEditingForm}">
-				<h1>Edit Profile</h1>
+				<h1>Edit Post</h1>
 				
 				<label for="title">Title</label>
 				<input class="form-control" type="text" name="title" id="title" th:field="*{title}">
@@ -56,27 +56,9 @@
 				<button class="btn btn-success" type="success">Edit</button>
 			</form>
 
-			<br>
-
 			<form method="post" th:action="@{/posts/delete/{title}(title = ${postEditingForm.getTitle()})}">
 				<button class="btn btn-danger" type="success">Delete</button>
 			</form>
-
-			<br>	
-
-			<div>
-				<a th:href="@{/posts/all}">
-					<button class="btn btn-primary">All Posts</button>
-				</a>
-			</div>
-
-			<br>
-
-			<div>
-				<a th:href="@{/myprofile}">
-					<button class="btn btn-primary">My Profile</button>
-				</a>
-			</div>
 		</div>
 	</body>
 </html>

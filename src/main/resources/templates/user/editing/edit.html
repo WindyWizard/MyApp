@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Edit Profile</title>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
-		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/edit.css}">
 	</head>
 
 	<body>
@@ -59,14 +59,6 @@
 			<div>
 				<a th:href="@{/profile/edit/{username}/password(username = ${userEditingForm.getUsername()})}">
 					<button class="btn btn-primary">Edit Password</button>
-				</a>
-			</div>
-
-			<br>
-
-			<div>
-				<a th:href="@{/myprofile}">
-					<button class="btn btn-primary">My Profile</button>
 				</a>
 			</div>
 		</div>

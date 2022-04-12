@@ -38,7 +38,8 @@ public class PostCreationController {
 	public String createPost(@RequestParam("image") MultipartFile image,
 		@Valid PostEntity postEntity,
 		BindingResult bindingResult,
-		Principal principal) {
+		Principal principal,
+		Model model) {
 
 		try {
 			// if (bindingResult.hasErrors()) {
@@ -51,7 +52,8 @@ public class PostCreationController {
 			return "redirect:/posts/all";
 
 		} catch (PostNotCreatedException | ImageNotUploadedException e) {
-			return e.getMessage();
+			model.addAttribute("error", e);
+			return "/message/error";
 		}
 	}
 }

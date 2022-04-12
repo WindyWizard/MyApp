@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Profile</title>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/profile.css}">
 	</head>
 
 	<body>
@@ -41,8 +42,8 @@
 		<div class="container">
 			<h1>User Profile</h1>
 
-			<p th:text="${'Username: ' + user.getUsername()}"></p>
-			<p th:text="${'Email: ' + user.getEmail()}"></p>
+			<p class="fs-5" th:text="${'Nickname: ' + user.getUsername()}"></p>
+			<p class="fs-5" th:text="${'Email: ' + user.getEmail()}"></p>
 
 			<div th:if="${executor.getRole().toString() == 'ROLE_ADMIN' || executor.getRole().toString() == 'ROLE_SUPERADMIN'}">
 				<div>

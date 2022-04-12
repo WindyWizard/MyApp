@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Login</title>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
-		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/auth.css}">
 	</head>
 
 	<body>
@@ -36,17 +36,12 @@
 				<label for="username">Username</label>
 				<input class="form-control" type="text" name="username" id="username" th:field="*{username}">
 
+				
 				<label for="password">Password</label>
 				<input class="form-control" type="password" name="password" id="password" th:field="*{password}">
-
-				<button class="btn btn-success" type="success">Log In</button>
+				
+				<button class="btn btn-success" type="success">Sign In</button>
 			</form>
-
-			<br>
-
-			<a th:href="@{/registration}">
-				<button class="btn btn-primary">Registration</button>
-			</a>
 		</div>
 	</body>
 </html>

@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>My Profile</title>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
-		<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/profile.css}">
 	</head>
 
 	<body>
@@ -40,31 +40,20 @@
 		</nav>
 
 		<div class="container">
-			<h1>Your Profile</h1>
-
-			<br>
+			<h1>Your Personal Page</h1>
 
 			<div th:if="${role.equals('ROLE_ADMIN')}">
-				<p class="admin">Admin</p>
+				<p class="admin">*Admin</p>
 			</div>
 
 			<div th:if="${role.equals('ROLE_SUPERADMIN')}">
-				<p class="superadmin">SuperAdmin</p>
+				<p class="admin">*SuperAdmin</p>
 			</div>
 
-			<h2 th:text="${'Username: ' + user.getUsername()}"></h2>
-			<p th:text="${'Email: ' + user.getEmail()}"></p>
+			<p class="fs-5" th:text="${'Your nickname: ' + user.getUsername()}"></p>
+			<p class="fs-5" th:text="${'Your email: ' + user.getEmail()}"></p>
 
 			<br>
-
-			<div>
-				<a th:href="@{/posts/create}">
-					<button class="btn btn-primary">Create Post</button>
-				</a>
-			</div>
-
-			<br>
-
 
 			<div>
 				<a th:href="@{/profile/edit/{username}(username = ${user.getUsername()})}">

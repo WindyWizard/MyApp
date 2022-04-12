@@ -4,8 +4,9 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>All Posts</title>
+		<title>News</title>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/allnews.css}">
 	</head>
 
 	<body>
@@ -40,20 +41,18 @@
 		</nav> 
 
 		<div class="container">
-			<h1>All Posts</h1>
-
-			<br>
+			<h1>News</h1>
 
 			<div th:each="post : ${posts}">
-				<h2><a class="link-dark" th:href="@{/posts/selected/{title}(title = ${post.getTitle()})}" th:text="${post.getTitle()}"></a></h2>
-
-				<br>
+				<h2>
+					<a class="link-dark" th:href="@{/posts/selected/{title}(title = ${post.getTitle()})}" th:text="${post.getTitle()}">
+						
+					</a>
+				</h2>
 
 				<div>
-					<img th:src="@{'/img/' + ${post.getImage()}}" width="50%">
+					<img th:src="@{'/img/' + ${post.getImage()}}">
 				</div>
-
-				<br>
 
 				<p nl2br:text="${post.getContent().substring(0, 1000) + '...'}"></p>
 

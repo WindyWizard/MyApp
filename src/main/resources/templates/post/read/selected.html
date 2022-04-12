@@ -4,8 +4,9 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>Selected Post</title>
+		<title th:text="${post.getTitle()}"></title>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/new.css}">
 	</head>
 
 	<body>
@@ -40,12 +41,7 @@
 		</nav>
 		
 		<div class="container">
-			<h1>Selected Post</h1>
-
-			<br>
-
-			<h2 th:text="${post.getTitle()}"></h2>
-			<br>
+			<h1 th:text="${post.getTitle()}"></h1>
 			<div>
 				<p>
 					Author:
@@ -58,62 +54,48 @@
 					</a> 
 				</p>
 			</div>
-			<br>
 
-				<div>
-					<img th:src="@{'/img/' + ${post.getImage()}}" width="50%">
-				</div>
-
-				<br>
-			<p nl2br:text="${post.getContent()}"></p>
-
-			<br>
-
-			<h2>Comments</h2>
-
-			<div th:each="comment : ${post.getComments()}">
-				<p th:if="${comment.getAuthor() == executor}">
-					<a class="link-dark" th:href="@{/myprofile}"
-					th:text="${comment.getAuthor()}"></a>
-				</p>
-				<p th:if="${comment.getAuthor() != executor}">
-					<a class="link-dark" th:href="@{/profile/{username}(username = ${comment.getAuthor()})}" th:text="${comment.getAuthor()}"></a>
-				</p>
-				<p th:text="${comment.getComment()}"></p>
-				<p class="fw-bold">***</p>
-				<br>
+			<div>
+				<img th:src="@{'/img/' + ${post.getImage()}}" width="50%">
 			</div>
 
-			<form method="post" th:action="@{/posts/{title}/comment(title = ${post.getTitle()})}">
-				<label for="comment">New Comment</label>
-				<textarea rows="3" class="form-control" type="text" name="comment" id="comment"></textarea>
-				<br>
-
-				<button class="btn btn-success" type="success">Add</button>
-			</form>
-
 			<br>
 
+			<p nl2br:text="${post.getContent()}"></p>
+
 			<div th:if="${executor.equals(post.getAuthor())}">
+				<br>
+				
 				<a th:href="@{/posts/edit/{title}(title = ${post.getTitle()})}">
 					<button class="btn btn-primary">Edit Post</button>
 				</a>
 			</div>
 
-			<br th:if="${executor.equals(post.getAuthor())}">
+			<hr>
 
-			<div>
-				<a th:href="@{/posts/all}">
-					<button class="btn btn-primary">All Posts</button>
-				</a>
-			</div>
+			<div class="comments">
+				<h2>Comments</h2>
 
-			<br>
+				<div th:each="comment : ${post.getComments()}">
+					<p th:if="${comment.getAuthor() == executor}">
+						<a class="link-dark" th:href="@{/myprofile}"
+						th:text="${comment.getAuthor()}"></a>
+					</p>
+					<p th:if="${comment.getAuthor() != executor}">
+						<a class="link-dark" th:href="@{/profile/{username}(username = ${comment.getAuthor()})}" th:text="${comment.getAuthor()}"></a>
+					</p>
+					<p th:text="${comment.getComment()}"></p>
+					<p class="fw-bold">***</p>
+					<br>
+				</div>
 
-			<div>
-				<a th:href="@{/myprofile}">
-					<button class="btn btn-primary">My Profile</button>
-				</a>
+				<form method="post" th:action="@{/posts/{title}/comment(title = ${post.getTitle()})}">
+					<label for="comment">New Comment</label>
+					<textarea rows="3" class="form-control" type="text" name="comment" id="comment"></textarea>
+					<br>
+
+					<button class="btn btn-success" type="success">Add</button>
+				</form>
 			</div>
 		</div>
 	</body>
