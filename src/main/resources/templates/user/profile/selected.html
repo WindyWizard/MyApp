@@ -8,6 +8,36 @@
 	</head>
 
 	<body>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <a class="navbar-brand" th:href="@{/}">MySite</a>
+		    </div>
+
+		    <div class="d-flex justify-content-end">
+		    	 <div class="collapse navbar-collapse">
+			    	<ul class="navbar-nav mr-auto">
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/posts/all}">
+								<button class="btn btn-success" type="button">News</button>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/myprofile}"> 
+								 <button class="btn btn-success" type="button">My Page</button>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/profiles}"> 
+								 <button class="btn btn-success" type="button">Users</button>
+							</a>
+						</li>
+					</ul>
+			    </div>
+		    </div>
+		  </div>
+		</nav>
+
 		<div class="container">
 			<h1>User Profile</h1>
 
@@ -22,20 +52,6 @@
 				</div>
 
 				<br>
-			</div>
-
-			<div>
-				<a th:href="@{/profiles}">
-					<button class="btn btn-primary">Other Users</button>
-				</a>
-			</div>
-
-			<br>
-
-			<div>
-				<a th:href="@{/myprofile}">
-					<button class="btn btn-primary">My Profile</button>
-				</a>
 			</div>
 		</div>
 	</body>

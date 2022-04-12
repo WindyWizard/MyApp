@@ -5,27 +5,39 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Home</title>
 		<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}">
+		<link rel="stylesheet" type="text/css" th:href="@{/css/homepage.css}">
 	</head>
 
 	<body>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <a class="navbar-brand" th:href="@{/}">MySite</a>
+		    </div>
+
+		    <div class="d-flex justify-content-end">
+		    	 <div class="collapse navbar-collapse">
+			    	<ul class="navbar-nav mr-auto">
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/registration}">
+								<button class="btn btn-success" type="button">Sign Up</button>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" th:href="@{/login}"> 
+								 <button class="btn btn-success" type="button">Login</button>
+							</a>
+						</li>
+					</ul>
+			    </div>
+		    </div>
+		  </div>
+		</nav> 
+
 		<div class="container">
-			<h1>Welcome Home!</h1>
+			<h1 class="about_header">About Me</h1>
 
 			<br>
-
-			<div>
-				<a th:href="@{/login}">
-					<button class="btn btn-primary">Login</button>
-				</a>
-			</div>
-
-			<br>
-
-			<div>
-				<a th:href="@{/registration}">
-					<button class="btn btn-primary">Registration</button>
-				</a>
-			</div>
 		</div>
 	</body>
 </html>
